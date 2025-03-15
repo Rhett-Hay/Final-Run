@@ -492,10 +492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43b9780fe5cf2c45b1d9e0153d29bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chunkPrefab: {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
-  _startingChunksAmount: 12
-  _chunkParent: {fileID: 1819737407}
-  _chunkLength: 10
+  _platformPrefab: {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
+  _startingPlatformAmount: 12
+  _platformParent: {fileID: 1819737407}
+  _platformLength: 10
+  _moveSpeed: 8
 --- !u!4 &1744512751
 Transform:
   m_ObjectHideFlags: 0
@@ -521,7 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1819737407}
   m_Layer: 0
-  m_Name: Chunk Parent
+  m_Name: Platform Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
