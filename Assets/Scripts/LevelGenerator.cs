@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -9,12 +11,12 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float _platformLength = 10f;
     [SerializeField] float _moveSpeed = 8f;
 
-    GameObject[] chunks = new GameObject[12];
+    List<GameObject> _platforms = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnChunks();
+        SpawnStartingChunks();
     }
 
     void Update() 
@@ -22,29 +24,34 @@ public class LevelGenerator : MonoBehaviour
         MoveChunks();
     }
 
-    void SpawnChunks()
+    void SpawnStartingChunks()
     {
         for (int i = 0; i < _startingPlatformAmount; i++)
         {
-            float spawnPositionZ = CalculateSpawnPositionZ(i);
-            Vector3 chunkSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
-            GameObject newChunk = Instantiate(_platformPrefab, chunkSpawnPos, Quaternion.identity, _platformParent);
-            chunks[i] = newChunk;
+            SpawnPlatform();
         }
     }
 
-    private float CalculateSpawnPositionZ(int i)
+    private void SpawnPlatform()
+    {
+        float spawnPositionZ = CalculateSpawnPositionZ();
+        Vector3 platformSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
+        GameObject newPlatform = Instantiate(_platformPrefab, platformSpawnPos, Quaternion.identity, _platformParent);
+        _platforms.Add(newPlatform);
+    }
+
+    private float CalculateSpawnPositionZ()
     {
         float spawnPositionZ;
 
-        if (i == 0)
+        if (_platforms.Count == 0)
         {
             spawnPositionZ = transform.position.z;
         }
         else
         {
             // Spawn slabs in front of the player
-            spawnPositionZ = transform.position.z + (i * _platformLength);
+            spawnPositionZ = _platforms[_platforms.Count - 1].transform.position.z + _platformLength;
         }
 
         return spawnPositionZ;
@@ -52,9 +59,17 @@ public class LevelGenerator : MonoBehaviour
 
     void MoveChunks()
     {
-        for (int i = 0; i < chunks.Length; i++)
+        for (int i = 0; i < _platforms.Count; i++)
         {
-            chunks[i].transform.Translate(-transform.forward * (_moveSpeed * Time.deltaTime));
+            GameObject platform = _platforms[i];
+            platform.transform.Translate(-transform.forward * (_moveSpeed * Time.deltaTime));
+
+            if (platform.transform.position.z <= Camera.main.transform.position.z - _platformLength)
+            {
+                _platforms.Remove(platform);
+                Destroy(platform);
+                SpawnPlatform();
+            }
         }
     }
 }
