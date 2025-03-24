@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -13,8 +14,19 @@ public class Platform : MonoBehaviour
 
     private void SpawnFence()
     {
-        int randomLaneIndex = Random.Range(0, _lanes.Length);
-        Vector3 spawnPosition = new Vector3(_lanes[randomLaneIndex], transform.position.y, transform.position.z);
-        Instantiate(_fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+        List<int> availableLanes = new List<int> {0, 1, 2};
+        int fencesToSpawn = Random.Range(0, _lanes.Length);
+
+        for (int i = 0; i < fencesToSpawn; i++)
+        {
+            if (availableLanes.Count <= 0) break;
+            
+            int randomLaneIndex = Random.Range(0, availableLanes.Count);
+            int selectedLane = availableLanes[randomLaneIndex];
+            availableLanes.RemoveAt(randomLaneIndex);
+
+            Vector3 spawnPosition = new Vector3(_lanes[selectedLane], transform.position.y, transform.position.z);
+            Instantiate(_fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+        }
     }
 }
