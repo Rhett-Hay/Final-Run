@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8205144143221200356}
+  - component: {fileID: -2681576806892082391}
+  - component: {fileID: 7388729495840076938}
   m_Layer: 0
   m_Name: Apple Pickup
   m_TagString: Untagged
@@ -32,6 +34,39 @@ Transform:
   - {fileID: 112870317798684567}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2681576806892082391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656260702656784119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f72f645ca35394c829ad0312e07cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7388729495840076938
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656260702656784119}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.21822879, y: 0.2670986, z: 0.19329733}
+  m_Center: {x: -0.0006479174, y: 0.3086579, z: -0.0038845986}
 --- !u!1 &8525330303893544669
 GameObject:
   m_ObjectHideFlags: 0
