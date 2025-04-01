@@ -10,21 +10,34 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] Transform _platformParent;
     [SerializeField] float _platformLength = 10f;
     [SerializeField] float _moveSpeed = 8f;
+    [SerializeField] float _minMoveSpeed = 2f;
 
     List<GameObject> _platforms = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnStartingChunks();
+        SpawnStartingPlatforms();
     }
 
     void Update() 
     {
-        MoveChunks();
+        MovePlatforms();
     }
 
-    void SpawnStartingChunks()
+    public void ChangePlatformMoveSpeed(float speedAmount)
+    {
+        _moveSpeed += speedAmount;
+
+        if (_moveSpeed < _minMoveSpeed)
+        {
+            _moveSpeed = _minMoveSpeed;
+        }
+
+        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
+    }
+
+    void SpawnStartingPlatforms()
     {
         for (int i = 0; i < _startingPlatformAmount; i++)
         {
@@ -57,7 +70,7 @@ public class LevelGenerator : MonoBehaviour
         return spawnPositionZ;
     }
 
-    void MoveChunks()
+    void MovePlatforms()
     {
         for (int i = 0; i < _platforms.Count; i++)
         {
