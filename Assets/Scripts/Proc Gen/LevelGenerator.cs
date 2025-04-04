@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [SerializeField] CameraController _cameraController;
     [SerializeField] GameObject _platformPrefab;
     [SerializeField] int _startingPlatformAmount = 12;
     [SerializeField] Transform _platformParent;
@@ -35,6 +36,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
+        _cameraController.ChangeCameraFOV(speedAmount);
     }
 
     void SpawnStartingPlatforms()
