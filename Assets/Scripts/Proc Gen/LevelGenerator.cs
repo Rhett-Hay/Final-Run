@@ -5,13 +5,21 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] CameraController _cameraController;
     [SerializeField] GameObject _platformPrefab;
-    [SerializeField] int _startingPlatformAmount = 12;
     [SerializeField] Transform _platformParent;
+
+    [Header("Level Settings")]
+    [Tooltip("The amount of platforms we start with")]
+    [SerializeField] int _startingPlatformAmount = 12;
+    [Tooltip("Do not change platform length value unless platform prefab size reflects change")]
     [SerializeField] float _platformLength = 10f;
     [SerializeField] float _moveSpeed = 8f;
     [SerializeField] float _minMoveSpeed = 2f;
+    [SerializeField] float _maxMoveSpeed = 20f;
+    [SerializeField] float _minGravityZ = -22f;
+    [SerializeField] float _maxGravityZ = -2f;
 
     List<GameObject> _platforms = new List<GameObject>();
 
@@ -28,15 +36,18 @@ public class LevelGenerator : MonoBehaviour
 
     public void ChangePlatformMoveSpeed(float speedAmount)
     {
-        _moveSpeed += speedAmount;
-
-        if (_moveSpeed < _minMoveSpeed)
+        float newMoveSpeed = _moveSpeed + speedAmount;
+        newMoveSpeed = Mathf.Clamp(newMoveSpeed, _minMoveSpeed, _maxMoveSpeed);
+        
+        if (newMoveSpeed != _moveSpeed)
         {
-            _moveSpeed = _minMoveSpeed;
-        }
+            _moveSpeed = newMoveSpeed;
+            float newGravityZ = Physics.gravity.z - speedAmount;
+            newGravityZ = Mathf.Clamp(newGravityZ, _minGravityZ, _maxGravityZ);
+            Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, newGravityZ);
 
-        Physics.gravity = new Vector3(Physics.gravity.x, Physics.gravity.y, Physics.gravity.z - speedAmount);
-        _cameraController.ChangeCameraFOV(speedAmount);
+            _cameraController.ChangeCameraFOV(speedAmount);
+        }
     }
 
     void SpawnStartingPlatforms()
