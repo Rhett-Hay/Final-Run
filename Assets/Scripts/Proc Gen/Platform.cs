@@ -13,6 +13,8 @@ public class Platform : MonoBehaviour
 
     [SerializeField] float[] _lanes = { -2.5f, 0, 2.5f};
     List<int> _availableLanes = new List<int> {0, 1, 2};
+    LevelGenerator _levelGenerator;
+    ScoreManager _scoreManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +22,12 @@ public class Platform : MonoBehaviour
         SpawnFences();
         SpawnApple();
         SpawnCoins();
+    }
+
+    public void Init(LevelGenerator levelGenerator, ScoreManager scoreManager)
+    {
+        this._levelGenerator = levelGenerator;
+        this._scoreManager = scoreManager;
     }
 
     void SpawnCoins()
@@ -37,7 +45,8 @@ public class Platform : MonoBehaviour
         {
             float spawnPositionZ = topOfPlatformZPos - (i * _coinSeperationLength);
             Vector3 spawnPosition = new Vector3(_lanes[selectedLane], transform.position.y, spawnPositionZ);
-            Instantiate(_coinPrefab, spawnPosition, Quaternion.identity, this.transform);
+            Coin newCoin = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity, this.transform).GetComponent<Coin>();
+            newCoin.Init(_scoreManager);
         }
     }
 
@@ -48,7 +57,8 @@ public class Platform : MonoBehaviour
         int selectedLane = SelectLane();
 
         Vector3 spawnPosition = new Vector3(_lanes[selectedLane], transform.position.y, transform.position.z);
-        Instantiate(_applePrefab, spawnPosition, Quaternion.identity, this.transform);
+        Apple newApple = Instantiate(_applePrefab, spawnPosition, Quaternion.identity, this.transform).GetComponent<Apple>();
+        newApple.Init(_levelGenerator);
     }
 
     void SpawnFences()

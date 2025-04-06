@@ -9,6 +9,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] CameraController _cameraController;
     [SerializeField] GameObject _platformPrefab;
     [SerializeField] Transform _platformParent;
+    [SerializeField] ScoreManager _scoreManager;
 
     [Header("Level Settings")]
     [Tooltip("The amount of platforms we start with")]
@@ -62,8 +63,10 @@ public class LevelGenerator : MonoBehaviour
     {
         float spawnPositionZ = CalculateSpawnPositionZ();
         Vector3 platformSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
-        GameObject newPlatform = Instantiate(_platformPrefab, platformSpawnPos, Quaternion.identity, _platformParent);
-        _platforms.Add(newPlatform);
+        GameObject newPlatformGO = Instantiate(_platformPrefab, platformSpawnPos, Quaternion.identity, _platformParent);
+        _platforms.Add(newPlatformGO);
+        Platform newPlatform = newPlatformGO.GetComponent<Platform>();
+        newPlatform.Init(this, _scoreManager);
     }
 
     private float CalculateSpawnPositionZ()

@@ -6033,6 +6033,7 @@ MonoBehaviour:
   _cameraController: {fileID: 213103485}
   _platformPrefab: {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
   _platformParent: {fileID: 1819737407}
+  _scoreManager: {fileID: 1179890702}
   _startingPlatformAmount: 12
   _platformLength: 10
   _moveSpeed: 8
