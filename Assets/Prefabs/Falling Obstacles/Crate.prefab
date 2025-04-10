@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2511633049448809005, guid: e7208e0e0ac46fd4faec9b1e62a24763, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2644229231515147968, guid: e7208e0e0ac46fd4faec9b1e62a24763, type: 3}
       propertyPath: m_Size.x
       value: 1.0872442
