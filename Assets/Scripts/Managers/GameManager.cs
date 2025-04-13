@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         DecreaseTime();
     }
 
+    public void IncreaseTime(float amount)
+    {
+        _timeLeft += amount;
+    }
+
     private void DecreaseTime()
     {
         if (_gameOver) return;

@@ -6154,7 +6154,7 @@ MonoBehaviour:
   _playerController: {fileID: 1026706233}
   _timeText: {fileID: 1489043303}
   _gameOverText: {fileID: 144528259}
-  _startTime: 5
+  _startTime: 60
 --- !u!1 &1489043300
 GameObject:
   m_ObjectHideFlags: 0
@@ -6326,6 +6326,10 @@ MonoBehaviour:
   - {fileID: 3664309864220245346, guid: 5282b2e9dfb49e54b9ebe957f55d021c, type: 3}
   - {fileID: 3664309864220245346, guid: c2268c487fd68a142b4b5fcdb8251b97, type: 3}
   - {fileID: 3664309864220245346, guid: ab072a8cdf74f9245ba76848c6be067b, type: 3}
+  - {fileID: 3664309864220245346, guid: 2c6b01abe672f894fa4a02e78916cfc4, type: 3}
+  - {fileID: 3664309864220245346, guid: 1ce74846024e2f24492db61e398ac511, type: 3}
+  - {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
+  - {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
   _checkpointPlatformPrefab: {fileID: 3664309864220245346, guid: 98d58dd11a75d674dabf939ce242ffab, type: 3}
   _platformParent: {fileID: 1819737407}
   _scoreManager: {fileID: 1179890702}
