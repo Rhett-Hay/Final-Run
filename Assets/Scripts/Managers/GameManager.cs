@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     float _timeLeft;
     bool _gameOver = false;
 
+    public bool GameOver => _gameOver;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,11 +35,11 @@ public class GameManager : MonoBehaviour
 
         if (_timeLeft <= 0)
         {
-            GameOver();
+            PlayerGameOver();
         }
     }
 
-    void GameOver()
+    void PlayerGameOver()
     {
         _gameOver = true;
         _playerController.enabled = false;
