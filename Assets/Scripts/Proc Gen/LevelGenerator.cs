@@ -1,19 +1,19 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CameraController _cameraController;
-    [SerializeField] GameObject _platformPrefab;
+    [SerializeField] GameObject[] _platformPrefabs;
+    [SerializeField] GameObject _checkpointPlatformPrefab;
     [SerializeField] Transform _platformParent;
     [SerializeField] ScoreManager _scoreManager;
 
     [Header("Level Settings")]
     [Tooltip("The amount of platforms we start with")]
     [SerializeField] int _startingPlatformAmount = 12;
+    [SerializeField] int _checkpointPlatformInterval = 8;
     [Tooltip("Do not change platform length value unless platform prefab size reflects change")]
     [SerializeField] float _platformLength = 10f;
     [SerializeField] float _moveSpeed = 8f;
@@ -23,6 +23,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float _maxGravityZ = -2f;
 
     List<GameObject> _platforms = new List<GameObject>();
+    int _platformsSpawned = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -62,11 +63,31 @@ public class LevelGenerator : MonoBehaviour
     private void SpawnPlatform()
     {
         float spawnPositionZ = CalculateSpawnPositionZ();
+        
         Vector3 platformSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
-        GameObject newPlatformGO = Instantiate(_platformPrefab, platformSpawnPos, Quaternion.identity, _platformParent);
+        GameObject platformToSpawn = ChoosePlatformToSpawn();
+        GameObject newPlatformGO = Instantiate(platformToSpawn, platformSpawnPos, Quaternion.identity, _platformParent);
         _platforms.Add(newPlatformGO);
         Platform newPlatform = newPlatformGO.GetComponent<Platform>();
         newPlatform.Init(this, _scoreManager);
+
+        _platformsSpawned++;
+    }
+
+    private GameObject ChoosePlatformToSpawn()
+    {
+        GameObject platformToSpawn;
+
+        if (_platformsSpawned % _checkpointPlatformInterval == 0 && _platformsSpawned != 0)
+        {
+            platformToSpawn = _checkpointPlatformPrefab;
+        }
+        else
+        {
+            platformToSpawn = _platformPrefabs[Random.Range(0, _platformPrefabs.Length)];
+        }
+
+        return platformToSpawn;
     }
 
     private float CalculateSpawnPositionZ()

@@ -6321,10 +6321,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraController: {fileID: 213103485}
-  _platformPrefab: {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
+  _platformPrefabs:
+  - {fileID: 1702274378060042757, guid: 2fe667393a132d6439ef0d26d523d65a, type: 3}
+  - {fileID: 3664309864220245346, guid: 5282b2e9dfb49e54b9ebe957f55d021c, type: 3}
+  - {fileID: 3664309864220245346, guid: c2268c487fd68a142b4b5fcdb8251b97, type: 3}
+  - {fileID: 3664309864220245346, guid: ab072a8cdf74f9245ba76848c6be067b, type: 3}
+  _checkpointPlatformPrefab: {fileID: 3664309864220245346, guid: 98d58dd11a75d674dabf939ce242ffab, type: 3}
   _platformParent: {fileID: 1819737407}
   _scoreManager: {fileID: 1179890702}
   _startingPlatformAmount: 12
+  _checkpointPlatformInterval: 8
   _platformLength: 10
   _moveSpeed: 8
   _minMoveSpeed: 2
