@@ -29,11 +29,12 @@ public class Rock : MonoBehaviour
 
         FireImpulse();
         CollisionFX(other);
+        _collisionTimer = 0f;
     }
 
     private void CollisionFX(Collision other)
     {
-        ContactPoint contactPoint = other.GetContact(0);
+        ContactPoint contactPoint = other.contacts[0];
         _collisionParticleSystem.transform.position = contactPoint.point;
         _collisionParticleSystem.Play();
         _boulderSmashAudioSource.Play();
